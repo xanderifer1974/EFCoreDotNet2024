@@ -1,5 +1,6 @@
-﻿namespace EFCore.Data.Models
-{
+﻿namespace EFCore.Model.Models { 
+
+
     public class IdentidadeSecreta
     {
         public int Id { get; set; }

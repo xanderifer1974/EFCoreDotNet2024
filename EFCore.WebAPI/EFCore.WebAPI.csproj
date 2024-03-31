@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EFCore.Data\EFCore.Data.csproj" />
+    <ProjectReference Include="..\EFCore.Data\EFCore.Repository.csproj" />
   </ItemGroup>
 
 </Project>

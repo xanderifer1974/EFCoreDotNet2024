@@ -1,4 +1,5 @@
-﻿using EFCore.Data.Models;
+﻿
+using EFCore.Model.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCore.Data
