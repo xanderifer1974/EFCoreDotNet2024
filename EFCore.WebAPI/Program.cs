@@ -1,4 +1,4 @@
-using EFCore.Data;
+using EFCore.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCore.WebAPI
