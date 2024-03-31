@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace EFCore.Data.Migrations
+namespace EFCore.Repository.Migrations
 {
     public partial class HeroisBatalhas_Identidade : Migration
     {

@@ -1,4 +1,4 @@
-﻿namespace EFCore.Data
+﻿namespace EFCore.Repository
 {
     public class SqlConfiguration
     {

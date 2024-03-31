@@ -2,7 +2,7 @@
 using EFCore.Model.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFCore.Data
+namespace EFCore.Repository
 {
     public class HeroiContext: DbContext
     {
