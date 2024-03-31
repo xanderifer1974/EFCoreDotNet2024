@@ -19,6 +19,14 @@ namespace EFCore.Data
             optionsBuilder.UseSqlServer(connectionString);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<HeroiBatalha>( entity =>
+            {
+                entity.HasKey(e => new {e.BatalhaId, e.HeroiId});
+            });
+        }
+
 
 
     }

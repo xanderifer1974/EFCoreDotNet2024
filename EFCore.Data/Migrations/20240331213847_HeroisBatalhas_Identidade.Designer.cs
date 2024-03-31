@@ -4,6 +4,7 @@ using EFCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.Data.Migrations
 {
     [DbContext(typeof(HeroiContext))]
-    partial class HeroiContextModelSnapshot : ModelSnapshot
+    [Migration("20240331213847_HeroisBatalhas_Identidade")]
+    partial class HeroisBatalhas_Identidade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
