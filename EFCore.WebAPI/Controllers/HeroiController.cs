@@ -42,11 +42,25 @@ namespace EFCore.WebAPI.Controllers
 
         // POST api/<HeroiController>
         [HttpPost]
-        public ActionResult Post( Heroi heroi)
+        public ActionResult Post()
         {
             try
             {
-                return Ok(heroi);
+                var heroi = new Heroi
+                {
+                    Nome = "Super Homem",
+                    Armas = new List<Arma>
+                    {
+                        new Arma {Nome = "Visão Raio X"},
+                        new Arma{Nome = "Sopro"}
+                    }
+
+                };
+
+                _context.Add(heroi);
+                _context.SaveChanges();
+
+                return Ok("Heroi Adicionado");
             }
             catch (Exception ex)
             {
