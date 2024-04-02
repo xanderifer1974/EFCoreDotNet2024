@@ -25,7 +25,12 @@ namespace EFCore.WebAPI
 
             builder.Services.AddScoped<IEFCoreRepository,EFCoreRepository>();
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                 .AddNewtonsoftJson(options =>
+                 {
+                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                     options.SerializerSettings.DateFormatString = "dd/MM/yyyy";
+                 });
 
             var app = builder.Build();
 

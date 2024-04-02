@@ -1,5 +1,5 @@
 ﻿using EFCore.Model.Models;
-using EFCore.Repository;
+using EFCore.Repository.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -10,75 +10,109 @@ namespace EFCore.WebAPI.Controllers
     [ApiController]
     public class HeroiController : ControllerBase
     {
-        public readonly HeroiContext _context;
+        private readonly IEFCoreRepository _repo;
 
-        public HeroiController(HeroiContext context )
+        public HeroiController(IEFCoreRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
-
-
-        // GET: api/<HeroiController>
+        // GET: api/Heroi
         [HttpGet]
-        public ActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                return Ok();
+                var herois = await _repo.GetAllHerois(true);
+
+                return Ok(herois);
             }
             catch (Exception ex)
             {
-
                 return BadRequest($"Erro: {ex}");
             }
         }
 
-        // GET api/<HeroiController>/5
-        [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        // GET: api/Heroi/5
+        [HttpGet("{id}", Name = "GetHeroi")]
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok(new { id });
+            try
+            {
+                var herois = await _repo.GetHeroiById(id, true);
+
+                return Ok(herois);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex}");
+            }
         }
 
-        // POST api/<HeroiController>
+        // POST: api/Heroi
         [HttpPost]
-        public ActionResult Post()
+        public async Task<IActionResult> Post(Heroi model)
         {
             try
             {
-                var heroi = new Heroi
+                _repo.Add(model);
+
+                if (await _repo.SaveChangeAsync())
                 {
-                    Nome = "Super Homem",
-                    Armas = new List<Arma>
-                    {
-                        new Arma {Nome = "Visão Raio X"},
-                        new Arma{Nome = "Sopro"}
-                    }
-
-                };
-
-                _context.Add(heroi);
-                _context.SaveChanges();
-
-                return Ok("Heroi Adicionado");
+                    return Ok("BAZINGA");
+                }
             }
             catch (Exception ex)
             {
-
                 return BadRequest($"Erro: {ex}");
             }
+
+            return BadRequest("Não Salvou");
         }
 
-        // PUT api/<HeroiController>/5
+        // PUT: api/Heroi/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, Heroi model)
         {
+            try
+            {
+                var heroi = await _repo.GetHeroiById(id);
+                if (heroi != null)
+                {
+                    _repo.Update(model);
+
+                    if (await _repo.SaveChangeAsync())
+                        return Ok("BAZINGA");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex}");
+            }
+
+            return BadRequest($"Não Deletado!");
         }
 
-        // DELETE api/<HeroiController>/5
+        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                var heroi = await _repo.GetHeroiById(id);
+                if (heroi != null)
+                {
+                    _repo.Delete(heroi);
+
+                    if (await _repo.SaveChangeAsync())
+                        return Ok("BAZINGA");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex}");
+            }
+
+            return BadRequest($"Não Deletado!");
         }
     }
 }
