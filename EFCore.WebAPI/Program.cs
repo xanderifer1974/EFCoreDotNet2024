@@ -1,4 +1,6 @@
 using EFCore.Repository;
+using EFCore.Repository.Repository;
+using EFCore.Repository.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCore.WebAPI
@@ -20,6 +22,8 @@ namespace EFCore.WebAPI
                 options.UseSqlServer(SqlConnectionConfiguration.ConnectionString));
 
             // Add services to the container.
+
+            builder.Services.AddScoped<IEFCoreRepository,EFCoreRepository>();
 
             builder.Services.AddControllers();
 
